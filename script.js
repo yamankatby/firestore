@@ -1,5 +1,5 @@
 import { initializeApp } from "firebase/app";
-import { collection, getDocs, getFirestore } from "firebase/firestore";
+import { addDoc, collection, getDocs, getFirestore } from "firebase/firestore";
 
 // Initialize Firebase
 
@@ -31,3 +31,20 @@ getDocs(ref)
   .catch((error) => {
     console.log(error);
   });
+
+// Write data
+
+const addForm = document.getElementById("add");
+
+addForm.addEventListener("submit", (e) => {
+  e.preventDefault();
+  const fruit = {
+    name: addForm.name.value,
+    color: addForm.color.value,
+    emoji: addForm.emoji.value,
+  };
+
+  addDoc(ref, fruit).then(() => {
+    alert("Doc added");
+  });
+});
