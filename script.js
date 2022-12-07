@@ -6,6 +6,7 @@ import {
   doc,
   getDocs,
   getFirestore,
+  updateDoc,
 } from "firebase/firestore";
 
 // Initialize Firebase
@@ -67,5 +68,25 @@ deleteForm.addEventListener("submit", (e) => {
 
   deleteDoc(docRef).then(() => {
     alert("doc deleted");
+  });
+});
+
+// Update data
+
+const updateForm = document.getElementById("update");
+
+updateForm.addEventListener("submit", (e) => {
+  e.preventDefault();
+  const id = updateForm.id.value;
+  const fruit = {
+    name: updateForm.name.value,
+    color: updateForm.color.value,
+    emoji: updateForm.emoji.value,
+  };
+
+  const docRef = doc(db, "fruits", id);
+
+  updateDoc(docRef, fruit).then(() => {
+    alert("doc updated");
   });
 });
