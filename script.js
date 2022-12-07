@@ -1,5 +1,5 @@
 import { initializeApp } from "firebase/app";
-import { getFirestore } from "firebase/firestore";
+import { collection, getDocs, getFirestore } from "firebase/firestore";
 
 // Initialize Firebase
 
@@ -15,3 +15,19 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 
 const db = getFirestore(app);
+
+// Read data
+
+const ref = collection(db, "fruits");
+
+getDocs(ref)
+  .then((snapshot) => {
+    const fruits = snapshot.docs.map((doc) => ({
+      id: doc.id,
+      ...doc.data(),
+    }));
+    console.log(fruits);
+  })
+  .catch((error) => {
+    console.log(error);
+  });
