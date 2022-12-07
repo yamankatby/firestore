@@ -4,8 +4,8 @@ import {
   collection,
   deleteDoc,
   doc,
-  getDocs,
   getFirestore,
+  onSnapshot,
   updateDoc,
 } from "firebase/firestore";
 
@@ -28,17 +28,13 @@ const db = getFirestore(app);
 
 const ref = collection(db, "fruits");
 
-getDocs(ref)
-  .then((snapshot) => {
-    const fruits = snapshot.docs.map((doc) => ({
-      id: doc.id,
-      ...doc.data(),
-    }));
-    console.log(fruits);
-  })
-  .catch((error) => {
-    console.log(error);
-  });
+onSnapshot(ref, (snapshot) => {
+  const fruits = snapshot.docs.map((doc) => ({
+    id: doc.id,
+    ...doc.data(),
+  }));
+  console.log(fruits);
+});
 
 // Write data
 
