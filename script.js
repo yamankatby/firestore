@@ -1,5 +1,12 @@
 import { initializeApp } from "firebase/app";
-import { addDoc, collection, getDocs, getFirestore } from "firebase/firestore";
+import {
+  addDoc,
+  collection,
+  deleteDoc,
+  doc,
+  getDocs,
+  getFirestore,
+} from "firebase/firestore";
 
 // Initialize Firebase
 
@@ -46,5 +53,19 @@ addForm.addEventListener("submit", (e) => {
 
   addDoc(ref, fruit).then(() => {
     alert("Doc added");
+  });
+});
+
+// Delete data
+
+const deleteForm = document.getElementById("delete");
+
+deleteForm.addEventListener("submit", (e) => {
+  e.preventDefault();
+
+  const docRef = doc(db, "fruits", deleteForm.id.value);
+
+  deleteDoc(docRef).then(() => {
+    alert("doc deleted");
   });
 });
