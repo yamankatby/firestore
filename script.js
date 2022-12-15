@@ -1,5 +1,5 @@
 import { initializeApp } from "firebase/app";
-import { getAuth } from "firebase/auth";
+import { createUserWithEmailAndPassword, getAuth } from "firebase/auth";
 import {
   addDoc,
   collection,
@@ -87,4 +87,21 @@ updateForm.addEventListener("submit", (e) => {
   updateDoc(docRef, fruit).then(() => {
     alert("doc updated");
   });
+});
+
+// Sign up
+const signUpForm = document.getElementById("signup");
+signUpForm.addEventListener("submit", (e) => {
+  e.preventDefault();
+
+  const email = signUpForm.email.value;
+  const password = signUpForm.password.value;
+
+  createUserWithEmailAndPassword(auth, email, password)
+    .then((user) => {
+      console.log("User signed up", user);
+    })
+    .catch((e) => {
+      console.log("An error", e);
+    });
 });
