@@ -1,5 +1,10 @@
 import { initializeApp } from "firebase/app";
-import { createUserWithEmailAndPassword, getAuth } from "firebase/auth";
+import {
+  createUserWithEmailAndPassword,
+  getAuth,
+  signInWithEmailAndPassword,
+  signOut,
+} from "firebase/auth";
 import {
   addDoc,
   collection,
@@ -103,5 +108,38 @@ signUpForm.addEventListener("submit", (e) => {
     })
     .catch((e) => {
       console.log("An error", e);
+    });
+});
+
+// Sign out
+
+const signOutBtn = document.getElementById("signout");
+
+signOutBtn.addEventListener("click", () => {
+  signOut(auth)
+    .then(() => {
+      console.log("User Signed out!");
+    })
+    .catch((e) => {
+      console.log("An error", e);
+    });
+});
+
+// Sign in
+
+const signInForm = document.getElementById("signin");
+
+signInForm.addEventListener("submit", (e) => {
+  e.preventDefault();
+
+  const email = signInForm.email.value;
+  const password = signInForm.password.value;
+
+  signInWithEmailAndPassword(auth, email, password)
+    .then((user) => {
+      console.log("user logged in", user);
+    })
+    .catch((e) => {
+      console.log("an error", e);
     });
 });
