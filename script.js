@@ -2,6 +2,7 @@ import { initializeApp } from "firebase/app";
 import {
   createUserWithEmailAndPassword,
   getAuth,
+  onAuthStateChanged,
   signInWithEmailAndPassword,
   signOut,
 } from "firebase/auth";
@@ -142,4 +143,14 @@ signInForm.addEventListener("submit", (e) => {
     .catch((e) => {
       console.log("an error", e);
     });
+});
+
+// auth state change listner
+
+onAuthStateChanged(auth, (user) => {
+  if (!user) {
+    console.log("the user has logged out");
+  } else {
+    console.log("an user is exists", user);
+  }
 });
